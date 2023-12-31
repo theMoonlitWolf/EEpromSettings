@@ -1,0 +1,11 @@
+{
+    "name": "EEpromSettings",
+    "version": "0.0",
+    "author": {
+        "name": "theMoonlitWolf",
+        "url": "https://github.com/theMoonlitWolf",
+        "maintainer": true
+    },
+    "description": "A library used to save and load settings in EEPROM.",
+    "url": "https://github.com/theMoonlitWolf/EEpromSettings"
+  }
