@@ -1,1 +1,1 @@
-A custom library for using wifi with an ESP01 for connection and receiving commands by connecting a client.
+A custom library for saving variables to the EEPROM.
