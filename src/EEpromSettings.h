@@ -3,11 +3,12 @@
 
 #include "Arduino.h"
 
-/*TODO:
- - example ifdef
- - example documentation
- - CRC check?
-*/
+/* TODO:
+ * Docstrings for class and functions
+ * README file
+ * Post to github and arduino forum
+ * CRC check?
+ */
 
 using ptr = void*;
 
@@ -16,18 +17,19 @@ struct settingPointer {
     size_t size;
 };
 
+/*
+*/
 class EEpromSettings {
     public:
         EEpromSettings(byte projID, settingPointer* settingPointers, size_t settingsCount, bool overwrite = true);
         ~EEpromSettings();
         byte getEEpromProjID();
-        void updatePointers(ptr settingsPointers[]);
         bool save();
         bool load();
     // private:
-        byte _projID;
-        settingPointer* _settingPointers;
-        size_t _settingsCount;
+        byte _projID; // The project ID.
+        settingPointer* _settingPointers; // The array of setting pointers.
+        size_t _settingsCount; // The count of settings.
 };
 
 #endif //EEPROMSETTINGS_H
