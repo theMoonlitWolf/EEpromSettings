@@ -4,14 +4,19 @@
 /**
  * Constructs an instance of the EEpromVariable class.
  */
-EEpromVariable::EEpromVariable(byte projID, variablePointer* variablePointers, size_t variablesCount, bool overwrite) : _projID(projID), _variablesCount(variablesCount) {
-    _variablePointers = new variablePointer[variablesCount];
+EEpromVariable::EEpromVariable(byte projID, variablePointer* variablePointers, bool overwrite) : _projID(projID) {
+    for (byte i = 0; i < 255; i++) {
+        if (variablePointers[i].pointer == nullptr) {
+            _variablesCount = i;
+            break;
+        }
+    }
+    _variablePointers = new variablePointer[_variablesCount];
     _variablePointers = variablePointers;
 
     if(overwrite && EEPROM.read(0) != _projID) {
         EEPROM.update(0, _projID);
         save();
-        Serial.println("Overwritten -> Saved defaults to EEPROM");
     }
 };
 
@@ -49,10 +54,8 @@ bool EEpromVariable::save() {
             // adress += _settingPointers[i].size;
             
         }
-        Serial.println("Saved values to EEPROM");
         return true;
     }
-    Serial.println("Failed to save values to EEPROM");
     return false;
 };
 
@@ -73,9 +76,7 @@ bool EEpromVariable::load() {
             // EEPROM.get(adress, _settingPointers[i].pointer);
             // adress += _settingPointers[i].size;
         }
-        Serial.println("Loaded values from EEPROM");
         return true;
     }
-    Serial.println("Failed to load values from EEPROM");
     return false;
 };

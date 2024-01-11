@@ -6,8 +6,8 @@
 */
 
 // Save example data to eeprom. Run this sketch once, than set this value to false and upload again.
-#define SAVE_EXAMPLE_DATA true
-// #define SAVE_EXAMPLE_DATA false
+// #define SAVE_EXAMPLE_DATA true
+#define SAVE_EXAMPLE_DATA false
 
 // Project ID is a 1 byte nubmer (0-255), strored in the first byte of the EEPROM (addres 0). Shoud be unique for all projects intended for the same board.
 // The libary uses this value to see what project is the data on the EEPROM from. If different, the data will be overwritten with default values from your sketch.
@@ -31,16 +31,17 @@ int* b = new int;
 myStruct* c = new myStruct;
 float* d = new float;
 
-// Create an array of pointers to the variables variables with its sizes. the lenght of this array will be needed in the constructor.
-#define VARIABLES_NUM 3
-variablePointer variablePointers[VARIABLES_NUM] = {
+// Create an array of pointers to the variables variables with its sizes.
+variablePointer variablePointers[] = {
     {a, sizeof(a)},
     {b, sizeof(b)},
-    {c, sizeof(c)}
+    {c, sizeof(c)},
+    {d, sizeof(d)},
+    {nullptr, 0}
 };
 
 // Constructor
-EEpromVariable eepromVariable(PROJECT_ID, variablePointers, VARIABLES_NUM);
+EEpromVariable eepromVariable(PROJECT_ID, variablePointers);
 
 void setup() {
     Serial.begin(115200);
@@ -55,6 +56,7 @@ void setup() {
     *b = 42;
     c->x = 5;
     c->y = 'f';
+    *d = 3.14;
     #endif
 
     // Set some different data - for the second run to be visibly overwritten by the data from EEPROM.
@@ -63,6 +65,7 @@ void setup() {
     *b = 0;
     c->x = 0;
     c->y = 'x';
+    *d = 0.0;
     #endif
 
     // Print Project ID
@@ -75,6 +78,7 @@ void setup() {
     Serial.print("b = "); Serial.println(*b);
     Serial.print("c.x = "); Serial.println(c->x);
     Serial.print("c.y = "); Serial.println(c->y);
+    Serial.print("d = "); Serial.println(*d);
     Serial.println();
 
     // Save data to EEPROM - only the first run
@@ -84,10 +88,12 @@ void setup() {
 
     // Load data from EEPROM and print it to Serial (EEpromVariable.load() returns bool, true if the load was successful)
     if (eepromVariable.load()) {
+        Serial.println("Loaded values from EEPROM:");
         Serial.print("a = "); Serial.println(a);
         Serial.print("b = "); Serial.println(*b);
         Serial.print("c.x = "); Serial.println(c->x);
         Serial.print("c.y = "); Serial.println(c->y);
+        Serial.print("d = "); Serial.println(*d);
     } else {
         Serial.println("Failed to load values from EEPROM - different project ID?");
     }
