@@ -1,11 +1,13 @@
 #include <Arduino.h>
-#include <EEpromSettings.h>
+#include <EEpromVariable.h>
+
+/**Description:
+ * This example shows how to use the library. Comments in this sketch are used to explain different parts.
+*/
 
 // Save example data to eeprom. Run this sketch once, than set this value to false and upload again.
 #define SAVE_EXAMPLE_DATA true
 // #define SAVE_EXAMPLE_DATA false
-
-// Coments in this sketch are used to explain how to use this library.
 
 // Project ID is a 1 byte nubmer, strored in the first byte of the EEPROM (addres 0). Shoud be unique for all projects intended for the same board.
 // The libary uses this value to see what project is the data on the EEPROM from. If different, the data will be overwritten with default values from your sketch.
@@ -38,7 +40,7 @@ settingPointer settingPointers[SETTINGS_NUM] = {
 };
 
 // Constructor
-EEpromSettings eepromSettings(PROJECT_ID, settingPointers, SETTINGS_NUM);
+EEpromVariable eepromVariable(PROJECT_ID, settingPointers, SETTINGS_NUM);
 
 void setup() {
     Serial.begin(115200);
@@ -64,7 +66,7 @@ void setup() {
     #endif
 
     // Print Project ID
-    Serial.print("ProjectID:"); Serial.print(PROJECT_ID); Serial.print(", eepromProjectID: "); Serial.println(eepromSettings.getEEpromProjID());
+    Serial.print("ProjectID:"); Serial.print(PROJECT_ID); Serial.print(", eepromProjectID: "); Serial.println(eepromVariable.getEEpromProjID());
     Serial.println();
 
     // Print hard coded data
@@ -77,11 +79,11 @@ void setup() {
 
     // Save data to EEPROM - only the first run
     #if SAVE_EXAMPLE_DATA == true
-    eepromSettings.save();
+    eepromVariable.save();
     #endif
 
-    // Load data from EEPROM and print it to Serial (EEpromSettings.load() returns bool, true if the load was successful)
-    if (eepromSettings.load()) {
+    // Load data from EEPROM and print it to Serial (EEpromVariable.load() returns bool, true if the load was successful)
+    if (eepromVariable.load()) {
         Serial.print("a = "); Serial.println(a);
         Serial.print("b = "); Serial.println(*b);
         Serial.print("c.x = "); Serial.println(c->x);

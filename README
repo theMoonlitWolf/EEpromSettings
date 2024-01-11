@@ -1,1 +1,7 @@
 A custom library for saving variables to the EEPROM.
+
+TODO:
+Docstrings for class and functions
+README file
+Post to github and arduino forum
+CRC check?
