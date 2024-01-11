@@ -11,7 +11,12 @@ struct variablePointer {
 };
 
 /**
- * 
+ * A class used to handle saving and loading variables to the EEPROM easily.
+ * @param projID The ID of the project. A number 0-255, should be unique for all projects intended for the same board. It's used to see what project does the EEPROM data belong to.
+ * @param variablePointers An array of variable pointers.
+ * @param variablesCount The count of variables in the array.
+ * @param overwrite Default value: true.
+ *                  If true, the library will overwrite EEPROM data to default values if the project ID doesn't match.
  */
 class EEpromVariable {
     public:

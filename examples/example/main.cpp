@@ -9,7 +9,7 @@
 #define SAVE_EXAMPLE_DATA true
 // #define SAVE_EXAMPLE_DATA false
 
-// Project ID is a 1 byte nubmer, strored in the first byte of the EEPROM (addres 0). Shoud be unique for all projects intended for the same board.
+// Project ID is a 1 byte nubmer (0-255), strored in the first byte of the EEPROM (addres 0). Shoud be unique for all projects intended for the same board.
 // The libary uses this value to see what project is the data on the EEPROM from. If different, the data will be overwritten with default values from your sketch.
 #define PROJECT_ID 1
 
@@ -19,7 +19,7 @@ struct myStruct {
     char y;
 };
 
-/* Create settings variables.
+/* Create variables variables.
  * Needs to be dynamically allocated (with new or malloc), so it has a constant adress in RAM.
  * Save the pointer values and use them like normal variables:
  *    for simple types (int, byte, float, bool ...) use: '*variableName' for read and '*variableName = value' for write
@@ -31,16 +31,16 @@ int* b = new int;
 myStruct* c = new myStruct;
 float* d = new float;
 
-// Create an array of pointers to the settings variables with its sizes. the lenght of this array will be needed in the constructor.
-#define SETTINGS_NUM 3
-settingPointer settingPointers[SETTINGS_NUM] = {
+// Create an array of pointers to the variables variables with its sizes. the lenght of this array will be needed in the constructor.
+#define VARIABLES_NUM 3
+variablePointer variablePointers[VARIABLES_NUM] = {
     {a, sizeof(a)},
     {b, sizeof(b)},
     {c, sizeof(c)}
 };
 
 // Constructor
-EEpromVariable eepromVariable(PROJECT_ID, settingPointers, SETTINGS_NUM);
+EEpromVariable eepromVariable(PROJECT_ID, variablePointers, VARIABLES_NUM);
 
 void setup() {
     Serial.begin(115200);

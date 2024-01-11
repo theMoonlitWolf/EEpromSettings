@@ -1,6 +1,9 @@
 #include "EEpromVariable.h"
 #include <EEPROM.h>
 
+/**
+ * Constructs an instance of the EEpromVariable class.
+ */
 EEpromVariable::EEpromVariable(byte projID, variablePointer* variablePointers, size_t variablesCount, bool overwrite) : _projID(projID), _variablesCount(variablesCount) {
     _variablePointers = new variablePointer[variablesCount];
     _variablePointers = variablePointers;
@@ -12,14 +15,27 @@ EEpromVariable::EEpromVariable(byte projID, variablePointer* variablePointers, s
     }
 };
 
+/**
+ * Destructor for the EEpromVariable class.
+ */
 EEpromVariable::~EEpromVariable() {
     delete[] _variablePointers;
 };
 
+/**
+ * Retrieves the EEPROM project ID.
+ *
+ * @return The project ID stored in the EEPROM.
+ */
 byte EEpromVariable::getEEpromProjID() {
     return EEPROM.read(0);
 }
 
+/**
+ * Saves the values of the EEpromVariable to EEPROM.
+ *
+ * @return true if the values are successfully saved, false otherwise (eg. the project ID doesn't match).
+ */
 bool EEpromVariable::save() {
     if (EEPROM.read(0) == _projID) {
         int adress = 1;
@@ -40,6 +56,11 @@ bool EEpromVariable::save() {
     return false;
 };
 
+/**
+ * Loads the values from EEPROM and returns a boolean indicating whether the loading was successful or not.
+ *
+ * @return true if the loading was successful, false otherwise (eg. the project ID doesn't match).
+ */
 bool EEpromVariable::load() {
     if (EEPROM.read(0) == _projID) {
         int adress = 1;
