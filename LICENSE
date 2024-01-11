@@ -1,20 +1,3 @@
-A custom library for easy saving variables to the EEPROM.
-
-## DESCRIPTION:
-
-
-## TODO:
-- README.md - markdown readme file
-- CRC check?
-
-## USAGE:
-For now refer example (EEpromVariables/examples/example/main.cpp)
-
-## CONTACT:
-For bug reports, or issues, please open an issue on [GitHub](https://github.com/theMoonlitWolf/EEpromSettings/issues).
-For questions, or feedback, please reach out to me on discord [@the_moonlit_wolf](https://discord.com/users/@the_moonlit_wolf).
-
-## LICENCE:
 MIT License
 
 Copyright (c) 2024 Viktor Potužník
