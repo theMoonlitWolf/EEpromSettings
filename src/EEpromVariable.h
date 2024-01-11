@@ -25,7 +25,7 @@ class EEpromVariable {
         byte getEEpromProjID();
         bool save();
         bool load();
-    // private:
+    private:
         byte _projID; // The project ID.
         variablePointer* _variablePointers; // The array of variable pointers.
         size_t _variablesCount; // The count of variables.
